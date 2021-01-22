@@ -1,14 +1,10 @@
 name: Windows
 on:
   push:
-    branches-ignore:
-      - 'drkameleon-devel'
-    paths-ignore:
-      - '*.gif'
-      - '*.png'
-      - '*.yml'
-      - '*.md'
-      - 'LICENSE'
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
   pull_request:
     paths-ignore:
       - '*.gif'
@@ -71,5 +67,5 @@ jobs:
       - name: Upload Artifacts
         uses: 'actions/upload-artifact@v2'
         with:
-          name: "arturo-${{matrix.os}}"
+          name: "arturo-mini-${{matrix.os}}"
           path: bin/arturo.exe

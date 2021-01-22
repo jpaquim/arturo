@@ -1,14 +1,10 @@
 name: "MacOS"
 on:
   push:
-    branches-ignore:
-      - 'drkameleon-devel'
-    paths-ignore:
-      - '*.gif'
-      - '*.png'
-      - '*.yml'
-      - '*.md'
-      - 'LICENSE'
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
   pull_request:
     paths-ignore:
       - '*.gif'
@@ -30,6 +26,9 @@ jobs:
       matrix:
         os:
           - macos-latest
+        version:
+          - mini
+          - full
     steps:
       - name: "Cancel similar actions in progress"
         uses: styfle/cancel-workflow-action@0.6.0
@@ -52,13 +51,13 @@ jobs:
           
       - name: Build Arturo
         run: |
-          ./install mini log
+          ./install ${{ matrix.version }} log
           echo "$HOME/.arturo/bin" >> $GITHUB_PATH
 
       - name: Upload Artifacts
         uses: 'actions/upload-artifact@v2'
         with:
-          name: "arturo-${{matrix.os}}"
+          name: "arturo-${{matrix.version}}-${{matrix.os}}"
           path: bin/arturo
 
       - name: Run unit tests

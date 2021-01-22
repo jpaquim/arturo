@@ -45,6 +45,12 @@ template As*():untyped =
         stack.push(newString(fmt"{x.i:o}"))
     elif (popAttr("ascii") != VNULL):
         stack.push(convertToAscii(x.s))
+    elif (popAttr("agnostic") != VNULL):
+        let res = x.a.map(proc(v:Value):Value =
+            if v.kind == Word and not syms.hasKey(v.s): newLiteral(v.s)
+            else: v
+        )
+        stack.push(newBlock(res))
     else:
         stack.push(x)
 
@@ -196,6 +202,8 @@ template To*(needsRequire:bool = true):untyped =
                 case tp:
                     of String: 
                         stack.push newString(y.s)
+                    of Literal:
+                        stack.push newLiteral(y.s)
                     else:
                         showConversionError()
 
@@ -219,8 +227,16 @@ template To*(needsRequire:bool = true):untyped =
                     else:
                         discard
 
-            of Symbol,
-               Dictionary,
+            of Symbol:
+                case tp:
+                    of String:
+                        stack.push newString($(y))
+                    of Literal:
+                        stack.push newLiteral($(y))
+                    else:
+                        showConversionError()
+
+            of Dictionary,
                Function,
                Database,
                Any,

@@ -1,14 +1,10 @@
 name: "Linux"
 on:
   push:
-    branches-ignore:
-      - 'drkameleon-devel'
-    paths-ignore:
-      - '*.gif'
-      - '*.png'
-      - '*.yml'
-      - '*.md'
-      - 'LICENSE'
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
   pull_request:
     paths-ignore:
       - '*.gif'
@@ -31,6 +27,9 @@ jobs:
           - ubuntu-16.04
           - ubuntu-18.04
           - ubuntu-20.04
+        version:
+          - mini
+          - full
     steps:
       - name: "Cancel similar actions in progress"
         uses: styfle/cancel-workflow-action@0.6.0
@@ -46,6 +45,12 @@ jobs:
         run: |
           wget -qO - https://nim-lang.org/choosenim/init.sh | bash -s -- -y
           echo "$HOME/.nimble/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        if: matrix.version == 'full'
+        run: |
+          sudo apt-get update
+          sudo apt-get install libwebkit2gtk-4.0-dev
           
       - name: Verify dependecies
         run: |
@@ -53,13 +58,13 @@ jobs:
           
       - name: Build Arturo
         run: |
-          ./install mini log
+          ./install ${{ matrix.version }} log
           echo "$HOME/.arturo/bin" >> $GITHUB_PATH
 
       - name: Upload Artifacts
         uses: 'actions/upload-artifact@v2'
         with:
-          name: "arturo-${{matrix.os}}"
+          name: "arturo-${{matrix.version}}-${{matrix.os}}"
           path: bin/arturo
 
       - name: Run unit tests
