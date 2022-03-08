@@ -147,7 +147,7 @@ proc syntaxHighlight(code: string) =
     # token colors
     let commentColor = fg(grayColor)
     let attributeColor = resetColor()
-    let literalColor = fg(rgb("129"))
+    let literalColor = fg(rgb("92"))
     let functionColor = fg(rgb("87"))
     let labelColor = fg(rgb("148"))
     let sugarColor = bold(rgb("208"))
