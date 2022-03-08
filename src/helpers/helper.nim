@@ -151,7 +151,7 @@ proc syntaxHighlight(code: string) =
     let functionColor = fg(rgb("87"))
     let labelColor = fg(rgb("148"))
     let sugarColor = bold(rgb("208"))
-    let symbolColor = fg(rgb("124"))
+    let symbolColor = fg(rgb("161"))
     let stringColor = fg(rgb("221"))
 
     proc colorizeToken(color, pattern: string): tuple[pattern: Regex, repl: string] = 
