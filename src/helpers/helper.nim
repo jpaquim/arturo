@@ -146,7 +146,7 @@ proc splitExamples*(ex: string): seq[string] =
 proc syntaxHighlight(code: string) =
     # token colors
     let commentColor = fg(grayColor)
-    let attributeColor = fg(whiteColor)
+    let attributeColor = resetColor()
     let literalColor = fg(rgb("129"))
     let functionColor = fg(rgb("87"))
     let labelColor = fg(rgb("148"))
