@@ -162,7 +162,7 @@ proc syntaxHighlight(code: string) =
             colorizeToken(stringColor, """(\"[^\"]+\")"""),
             colorizeToken(stringColor, """(`[^\`]+`)"""),
             colorizeToken(literalColor, """('[\w]+\b\??:?)"""),
-            colorizeToken(labelColor, """((?<!\.)([\w]+\b\??:)"""),
+            colorizeToken(labelColor, """((?<!\.)([\w]+\b\??:))"""),
             colorizeToken(sugarColor, """(->|=>|\||\:\:|[\-]{3,})"""),
             colorizeToken(functionColor, """((?<!')\b(all|and|any|ascii|attr|attribute|attributeLabel|binary|block|char|contains|database|date|dictionary|empty|equal|even|every|exists|false|floating|function|greater|greaterOrEqual|if|in|inline|integer|is|key|label|leap|less|lessOrEqual|literal|logical|lower|nand|negative|nor|not|notEqual|null|numeric|odd|or|path|pathLabel|positive|prefix|prime|set|some|sorted|standalone|string|subset|suffix|superset|symbol|true|try|type|unless|upper|when|whitespace|word|xnor|xor|zero)\?(?!:))"""),
             colorizeToken(symbolColor, """(<\:|\-\:|ø|∞|@|#|\+|<=>|=>>|<->|-->|<-->|==>|<==>|<\||\|\-|\|=|\||\*|\$|\-|\%|\/|[\.]{2,}|&|_|!|!!|<:|>:|\./|\^|~|=|<|>|\\|(?<!\\w)\?)"""),
